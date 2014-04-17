@@ -103,3 +103,17 @@ Object.defineProperty(Blob.prototype, 'position', {
 
 Blob.prototype.getPosition = function() { return this._position; };
 Blob.prototype.setPosition = function(point) { this._position = point; };
+
+
+
+/*****************************************************************************
+* Handling our Velocity
+*/
+
+Object.defineProperty(Blob.prototype, 'velocity', {
+	get: function() { return this.getVelocity(); },
+	set: function(m) { this.setVelocity(m); }
+});
+
+Blob.prototype.getVelocity = function() { return this._velocity; };
+Blob.prototype.setVelocity = function(velocity) { this._velocity = velocity; };
