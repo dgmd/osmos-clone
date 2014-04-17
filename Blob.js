@@ -165,6 +165,26 @@ Blob.prototype.moveTo = function(xy) {
 
 
 /*****************************************************************************
+* Ejecting Blob(s)
+*/
+
+Blob.prototype.eject = function(mass, speed, degrees) {
+	// This function should create new blob of mass mass, ejecting from this
+	// blob at an angle of degrees with speed speed
+
+	// This blob should increase in speed away from the ejected blob, 
+	// proportional to the ejected mass*speed
+
+	// Suggested flow:
+	// - Create a new blob
+	// - Place it adjacent to this blob
+	// - Place it adjacent to this blob, exiting at the right direction
+	// - Adjust the velocity of this blob appropriately
+};
+
+
+
+/*****************************************************************************
 * Simulating our Blob(s)
 */
 
