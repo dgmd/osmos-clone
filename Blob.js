@@ -28,3 +28,29 @@ function Blob(space, mass, position, velocity) {
 // Blob.prototype
 
 Blob.defaultMaxMass = 10000;
+
+Blob.prototype.redrawBlob = function() {
+	// As the state of our Blob changes, this is the function responsible for 
+	// changing its appearance
+
+	// Position our Blob absolutely relative to our Space
+	this._dom.style.position = 'absolute';
+
+	// Put the center of our Blob at its position
+	this._dom.style.left = this.getPosition()[0] - this.radius;
+	this._dom.style.top = this.getPosition()[1] - this.radius;
+
+	// Set the size of our Blob and make it a circle
+	this._dom.style.width  = 2 * this.radius;
+	this._dom.style.height = 2 * this.radius;
+	this._dom.style.borderRadius = this.radius; // Make it a circle
+
+	// Set a background-color ranging from pure red to pure blue depending on
+	// its size relative to Blob.defaultMaxMass
+	var backgroundColor = 'rgb(' + [
+        255 * (1 - this.getMass() / Blob.defaultMaxMass),
+        0,
+        255 * (this.getMass() / Blob.defaultMaxMass)
+        ].map(Math.round).join(',') + ')';
+	this._dom.style.backgroundColor =  backgroundColor;
+};
