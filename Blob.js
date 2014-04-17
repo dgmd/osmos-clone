@@ -117,3 +117,47 @@ Object.defineProperty(Blob.prototype, 'velocity', {
 
 Blob.prototype.getVelocity = function() { return this._velocity; };
 Blob.prototype.setVelocity = function(velocity) { this._velocity = velocity; };
+
+
+
+/*****************************************************************************
+* Moving our Blob
+*/
+
+Blob.prototype.moveTo = function(xy) {
+	// If we need to bounce, we'll multiply our velocity by this, if we don't,
+	// we'll just be multiplying by 1
+	var bounce = [1, 1];
+
+	var blob = this;	// When we're using map, 'this' gets rebound, so we save 
+						// an easy to use pointer to it
+
+	var newPosition = xy.map(function(c, i) {
+		// Calculate our new postion, but if it's out of bounds, go as far as we 
+		// can and alter bounce
+
+		if (c - blob.radius < 0) {
+			// Too small?
+			bounce[i] = -1;
+			return blob.radius;
+		}
+		else if (c + blob.radius > blob._space._size) {
+			// Too big?
+			bounce[i] = -1;
+			return blob._space._size - blob.radius;
+		}
+		else {
+			return c;
+		}
+	});
+
+	// Modify our velocity with our bounce factor
+	var newVelocity = this.velocity.map(function(v, i) { return v*bounce[i]; });
+
+	// Actually update our position, velocity
+	this.position = newPosition;
+	this.velocity = newVelocity;
+
+	// For convenience, return our position
+	return this.position;
+};
