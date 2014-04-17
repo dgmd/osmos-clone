@@ -89,3 +89,17 @@ Object.defineProperty(Blob.prototype, 'mass', {
 
 Blob.prototype.getMass = function() { return this._mass; };
 Blob.prototype.setMass = function(mass) { this._mass = mass; };
+
+
+
+/*****************************************************************************
+* Handling our Position
+*/
+
+Object.defineProperty(Blob.prototype, 'position', {
+	get: function() { return this.getPosition(); },
+	set: function(p) { this.setPosition(p); }
+});
+
+Blob.prototype.getPosition = function() { return this._position; };
+Blob.prototype.setPosition = function(point) { this._position = point; };
