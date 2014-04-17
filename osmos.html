@@ -38,8 +38,17 @@
 	    <div id='space'></div>
 	</div>
 
-    <script>
-    </script>
+	<script src='util.js'></script>
+	<script src='space.js'></script>
+	<script src='blob.js'></script>
+	<script>
+		var dt = 20;
+		var me;
+		window.onload = function() {
+			me = new Blob();
+			window.setInterval(function() { me.simulate(dt); me.redrawBlob(); }, dt);
+		};
+	</script>
 </body>
 
 </html>
