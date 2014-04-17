@@ -161,3 +161,17 @@ Blob.prototype.moveTo = function(xy) {
 	// For convenience, return our position
 	return this.position;
 };
+
+
+
+/*****************************************************************************
+* Simulating our Blob(s)
+*/
+
+Blob.prototype.simulate = function(dt) {
+	var blob = this;
+	var newPosition = this.position.map(function(xy, i) {
+		return xy + blob.velocity[i]*dt;
+	});
+	this.moveTo(newPosition);
+};
