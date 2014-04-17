@@ -75,3 +75,17 @@ Object.defineProperty(Blob.prototype, 'radius', {
 Blob.prototype.getRadius = function() {
 	return Blob.radiusFromMass(this.getMass());
 };
+
+
+
+/*****************************************************************************
+* Handling our Mass
+*/
+
+Object.defineProperty(Blob.prototype, 'mass', {
+	get: function() { return this.getMass(); },
+	set: function(m) { this.setMass(m); }
+});
+
+Blob.prototype.getMass = function() { return this._mass; };
+Blob.prototype.setMass = function(mass) { this._mass = mass; };
