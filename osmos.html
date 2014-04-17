@@ -1,9 +1,43 @@
 <html>
 
 <style>
+	html, body {
+		margin: 0;
+		padding: 0;
+
+		width: 100%;
+		height: 100%;
+	}
+
+	#container {
+		position: relative;
+		
+		height: 100%;
+		min-height: 670px;
+		min-width: 670px;
+		
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	#space {
+		position: absolute;
+
+		width: 500px;
+		height: 500px;
+		
+		top: calc(50% - 500px/2);
+		left: calc(50% - 500px/2);
+		
+		background-color: black;
+	}
 </style>
 
 <body>
+	<div id='container'>
+	    <div id='space'></div>
+	</div>
+
     <script>
     </script>
 </body>
