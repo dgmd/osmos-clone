@@ -54,3 +54,24 @@ Blob.prototype.redrawBlob = function() {
         ].map(Math.round).join(',') + ')';
 	this._dom.style.backgroundColor =  backgroundColor;
 };
+
+
+/*****************************************************************************
+* Handling our Radius
+*/
+
+Blob.radiusFromMass = function (mass) {
+	// To go from mass to radius; note the absence of .prototype; this is a
+	// class method which we'll sometimes use while creating an instance
+	return Math.sqrt(mass / Math.PI);
+};
+
+// Defining accessor interface
+Object.defineProperty(Blob.prototype, 'radius', {
+	get: function() { return this.getRadius(); }
+});
+
+// Defining our base accessor
+Blob.prototype.getRadius = function() {
+	return Blob.radiusFromMass(this.getMass());
+};
