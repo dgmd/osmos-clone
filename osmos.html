@@ -43,10 +43,14 @@
 	<script src='blob.js'></script>
 	<script>
 		var dt = 20;
-		var me;
+		var space;
 		window.onload = function() {
-			me = new Blob();
-			window.setInterval(function() { me.simulate(dt); me.redrawBlob(); }, dt);
+			var numBlobs = 1;
+			space = new Space(document.getElementById('space'));
+			for (var i = 0; i < 1; i++) { 
+				new Blob(space); 
+			}
+			window.setInterval(function() { space.update(dt); }, dt);
 		};
 	</script>
 </body>
