@@ -13,7 +13,7 @@ function Blob(space, mass, position, velocity) {
         });
 
     // If we don't have a velocity, initialize it as [0, 0]
-    this._velocity = velocity ? velocity : [0, 0];
+    this._velocity = velocity ? velocity : [Math.random(), Math.random()];
 
     // Create a DOM element for our blob and style it (though it isn't yet added)
 	this._dom = document.createElement('div');
