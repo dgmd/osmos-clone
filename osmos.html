@@ -31,6 +31,22 @@
 		
 		background-color: black;
 	}
+
+	#me {
+		border: 2px white solid;
+		-webkit-transition: -webkit-transform 0.125s ease-in-out;
+	}
+	
+	#me > div:first-child {
+		position: relative;
+
+		width: 100%;
+		height: 2px;
+		
+		top: calc(50% - 1px);
+
+		background-color: white;
+	}
 </style>
 
 <body>
@@ -53,7 +69,8 @@
 				if (i === 0 && !b) {
 					// Highlighting the first Blob we make
 					var b = new Blob(space);
-					b._dom.style.border = '2px white dashed';
+					b._dom.appendChild(document.createElement('div'));
+					b._dom.id = 'me';
 				}
 				else { new Blob(space); }
 			}

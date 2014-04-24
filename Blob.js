@@ -116,7 +116,29 @@ Object.defineProperty(Blob.prototype, 'velocity', {
 });
 
 Blob.prototype.getVelocity = function() { return this._velocity; };
-Blob.prototype.setVelocity = function(velocity) { this._velocity = velocity; };
+Blob.prototype.setVelocity = function(velocity) {
+	if (norm(velocity) !== 0) { this._direction = angleOf(this.velocity); }
+	this._velocity = velocity;
+	this._dom.style.webkitTransform = 'rotate(' + this.direction + 'deg)';
+};
+
+
+
+/*****************************************************************************
+* Handling our Direction
+*/
+
+Object.defineProperty(Blob.prototype, 'direction', {
+	get: function() { return this.getDirection(); },
+	set: function(degrees) { this.setDirection(degrees); }
+});
+
+Blob.prototype.getDirection = function() { return toDegrees(this._direction); };
+Blob.prototype.setDirection = function(degrees) {
+	var speed = norm(this.velocity);
+	var newDirectionUnitVector = unitVector([Math.cos(toRadians(degrees)), Math.sin(toRadians(degrees))]);
+	this.velocity = newDirectionUnitVector.map(function(v) { return v*speed; });
+};
 
 
 
@@ -176,7 +198,7 @@ Blob.prototype.eject = function(mass, speed, degrees) {
 		this.position[0] + Math.cos(toRadians(degrees))*(this.radius + ejectaRadius),
 		this.position[1] + Math.sin(toRadians(degrees))*(this.radius + ejectaRadius)
 	];
-	var ejectaVelocity = normalizeVector(this.velocity.map(function(v) { return -1*speed*v; }));
+	var ejectaVelocity = unitVector(this.velocity.map(function(v) { return -1*speed*v; }));
 	var ejecta = new Blob(this._space, mass, ejectaPosition, ejectaVelocity);
 	this.mass -= ejecta.mass;
 

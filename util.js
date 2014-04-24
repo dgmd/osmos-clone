@@ -21,10 +21,14 @@ Array.prototype.equals = function (array) {
     return true;
 };
 
-function normalizeVector(vector) {
-    var norm = Math.sqrt(vector.map(
+function unitVector(vector) {
+    return vector.map(function(v) { return parseFloat(v)/norm(vector); });
+}
+
+function norm(vector) {
+    return Math.sqrt(vector.map(
         function(v) { return v*v; }).reduce(
             function(a, b) { return a + b; }));
-
-    return vector.map(function(v) { return parseFloat(v)/norm; });
 }
+
+function angleOf(vector) { return Math.atan(vector[1]/vector[0]); }
