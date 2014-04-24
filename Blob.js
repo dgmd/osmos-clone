@@ -38,8 +38,8 @@ Blob.prototype.redrawBlob = function() {
 	this._dom.style.position = 'absolute';
 
 	// Put the center of our Blob at its position
-	this._dom.style.left = this.getPosition()[0] - this.radius;
-	this._dom.style.top = this.getPosition()[1] - this.radius;
+	this._dom.style.left = this.position[0] - this.radius;
+	this._dom.style.top = this.position[1] - this.radius;
 
 	// Set the size of our Blob and make it a circle
 	this._dom.style.width  = 2 * this.radius;
@@ -49,9 +49,9 @@ Blob.prototype.redrawBlob = function() {
 	// Set a background-color ranging from pure red to pure blue depending on
 	// its size relative to Blob.defaultMaxMass
 	var backgroundColor = 'rgb(' + [
-        255 * (1 - this.getMass() / Blob.defaultMaxMass),
+        255 * (1 - this.mass / Blob.defaultMaxMass),
         0,
-        255 * (this.getMass() / Blob.defaultMaxMass)
+        255 * (this.mass / Blob.defaultMaxMass)
         ].map(Math.round).join(',') + ')';
 	this._dom.style.backgroundColor =  backgroundColor;
 };
