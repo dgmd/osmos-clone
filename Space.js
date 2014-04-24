@@ -21,3 +21,16 @@ Space.prototype.removeBlob = function(blob) {
 	this._dom.removeChild(blob._dom); // remove the blob from our DOM
 	this._blobs.splice(this.blobs.indexOf(blob), 1); // & then stop tracking it
 };
+
+Space.prototype.update = function(dt) {
+	this._blobs.map(function(b) {
+		b.simulate(dt);
+		b.redrawBlob();
+	});
+};
+
+
+
+
+
+
