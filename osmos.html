@@ -46,10 +46,18 @@
 		var space;
 		window.onload = function() {
 			var numBlobs = 1;
+			
 			space = new Space(document.getElementById('space'));
-			for (var i = 0; i < 1; i++) { 
-				new Blob(space); 
+
+			for (var i = 0; i < 1; i++) {
+				if (i === 0 && !b) {
+					// Highlighting the first Blob we make
+					var b = new Blob(space);
+					b._dom.style.border = '2px white dashed';
+				}
+				else { new Blob(space); }
 			}
+			
 			window.setInterval(function() { space.update(dt); }, dt);
 		};
 	</script>
