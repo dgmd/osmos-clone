@@ -1,4 +1,5 @@
 function Blob(space, mass, position, velocity) {
+
     this._space = space ? space : new Space(); // Find our Space
 
     // Define our mass
@@ -91,7 +92,6 @@ Blob.prototype.getMass = function() { return this._mass; };
 Blob.prototype.setMass = function(mass) { this._mass = mass; };
 
 
-
 /*****************************************************************************
 * Handling our Position
 */
@@ -169,17 +169,18 @@ Blob.prototype.moveTo = function(xy) {
 */
 
 Blob.prototype.eject = function(mass, speed, degrees) {
-	// This function should create new blob of mass mass, ejecting from this
-	// blob at an angle of degrees with speed speed
+	if (mass > this.mass) { throw "Ejecting more mass than " + this + " has!"; }
 
-	// This blob should increase in speed away from the ejected blob, 
-	// proportional to the ejected mass*speed
+	var ejectaRadius = Blob.radiusFromMass(mass);
+	var ejectaPosition = [
+		this.position[0] + Math.cos(toRadians(degrees))*(this.radius + ejectaRadius),
+		this.position[1] + Math.sin(toRadians(degrees))*(this.radius + ejectaRadius)
+	];
+	var ejectaVelocity = normalizeVector(this.velocity.map(function(v) { return -1*speed*v; }));
+	var ejecta = new Blob(this._space, mass, ejectaPosition, ejectaVelocity);
+	this.mass -= ejecta.mass;
 
-	// Suggested flow:
-	// - Create a new blob
-	// - Place it adjacent to this blob
-	// - Place it adjacent to this blob, exiting at the right direction
-	// - Adjust the velocity of this blob appropriately
+	return ejecta;
 };
 
 

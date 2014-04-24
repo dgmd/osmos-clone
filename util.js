@@ -20,3 +20,11 @@ Array.prototype.equals = function (array) {
     // If we get to the end, we've checked all the elements
     return true;
 };
+
+function normalizeVector(vector) {
+    var norm = Math.sqrt(vector.map(
+        function(v) { return v*v; }).reduce(
+            function(a, b) { return a + b; }));
+
+    return vector.map(function(v) { return parseFloat(v)/norm; });
+}
