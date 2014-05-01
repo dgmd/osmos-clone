@@ -11,11 +11,11 @@
 
 	#container {
 		position: relative;
-		
+
 		height: 100%;
 		min-height: 670px;
 		min-width: 670px;
-		
+
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -25,27 +25,31 @@
 
 		width: 500px;
 		height: 500px;
-		
+
 		top: calc(50% - 500px/2);
 		left: calc(50% - 500px/2);
-		
+
 		background-color: black;
 	}
+
+	.blob { border: 2px grey solid; }
 
 	#me {
 		border: 2px white solid;
 		-webkit-transition: -webkit-transform 0.125s ease-in-out;
 	}
-	
+
 	#me > div:first-child {
 		position: relative;
 
 		width: 100%;
 		height: 2px;
-		
+
 		top: calc(50% - 1px);
 
 		background-color: white;
+
+		z-index: 10000;
 	}
 </style>
 
@@ -55,26 +59,36 @@
 	</div>
 
 	<script src='util.js'></script>
-	<script src='space.js'></script>
-	<script src='blob.js'></script>
+	<script src='Space.js'></script>
+	<script src='Blob.js'></script>
+	<script src='Sun.js'></script>
 	<script>
 		var dt = 20;
-		var space;
+		var space, sun;
 		window.onload = function() {
 			var numBlobs = 1;
-			
-			space = new Space(document.getElementById('space'));
 
-			for (var i = 0; i < 1; i++) {
-				if (i === 0 && !b) {
+			var me = null;
+
+			space = new Space(document.getElementById('space'));
+			sun = new Sun(space);
+
+			for (var i = 0; i < numBlobs; i++) {
+				if (i === 0 && !me) {
 					// Highlighting the first Blob we make
-					var b = new Blob(space);
-					b._dom.appendChild(document.createElement('div'));
-					b._dom.id = 'me';
+					me = new Blob(space);
+					me._dom.appendChild(document.createElement('div'));
+					me._dom.id = 'me';
 				}
 				else { new Blob(space); }
 			}
-			
+
+			document.getElementById('space').addEventListener('click', function(e) {
+				console.log('click');
+				var clickPosition = [e.layerX, e.layerY];
+				me.eject(Math.min(100, 0.01*me.mass), 0.1, toDegrees(angleBetween(me.position, clickPosition)));
+			});
+
 			window.setInterval(function() { space.update(dt); }, dt);
 		};
 	</script>

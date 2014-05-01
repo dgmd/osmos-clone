@@ -28,9 +28,3 @@ Space.prototype.update = function(dt) {
 		b.redrawBlob();
 	});
 };
-
-
-
-
-
-
